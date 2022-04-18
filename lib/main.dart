@@ -1,3 +1,4 @@
+import 'package:dally/resource/values/colors.dart';
 import 'package:dally/routes/pages.dart';
 import 'package:dally/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Dally',
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFFBFBFB)
-      ),
+          fontFamily: 'spoqa',
+          scaffoldBackgroundColor: ColorPalette.backGroundGray,
+          primaryColor: ColorPalette.mainBlue),
       getPages: ApplicationPages.pages,
-      initialRoute: Routes.main,
+      initialRoute: Routes.tempMain,
     );
   }
 }

@@ -3,7 +3,7 @@ description: Dally Project
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 0.0.1+1
 
 environment:
   sdk: ">=2.16.1 <3.0.0"
@@ -12,7 +12,26 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # state management & routing tool
   get: ^4.6.1
+
+  # http client
+  retrofit: ^3.0.1+1
+  logger: any
+
+  # svg
+  flutter_svg: ^1.0.3
+
+  # lottie
+  lottie: ^1.2.2
+
+  # image
+  image_picker: ^0.8.5
+  image_picker_for_web: ^2.1.6
+  screenshot: ^1.2.3
+
+  # download
+  download: ^0.0.1+1
 
 dev_dependencies:
   flutter_test:
@@ -20,5 +39,26 @@ dev_dependencies:
 
   flutter_lints: ^1.0.0
 
+  retrofit_generator: ^4.0.1
+  build_runner: ^2.1.8
+  json_serializable: ^6.1.5
+
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/imgs/
+
+  fonts:
+    - family: spoqa
+      fonts:
+        - asset: assets/fonts/SpoqaHanSansNeo-Thin.ttf
+          weight: 200
+        - asset: assets/fonts/SpoqaHanSansNeo-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SpoqaHanSansNeo-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SpoqaHanSansNeo-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SpoqaHanSansNeo-Bold.ttf
+          weight: 700
