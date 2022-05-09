@@ -86,7 +86,7 @@ class TempSetProfilePage extends GetView<TempSetProfileController> {
             ]),
             const SizedBox(height: 24),
             Text(
-              controller.name.value != "" ? controller.name.value : "작가 이름",
+              controller.nickName.value != "" ? controller.nickName.value : "작가 이름",
               style: const TextStyle(
                   letterSpacing: 0.5,
                   fontWeight: FontWeight.w500,
@@ -110,7 +110,7 @@ class TempSetProfilePage extends GetView<TempSetProfileController> {
           children: [
             // name Section
             underlineInput(
-                textEditingController: controller.nameInputController,
+                textEditingController: controller.nickNameInputController,
                 inputTextStyle: const TextStyle(fontSize: 16),
                 label: "작가 이름",
                 hint: "최대 10자",

@@ -1,45 +1,47 @@
-
-import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:dally/data/model/user_model.dart';
+import 'package:dally/data/repository/user_repository.dart';
 import 'package:dally/routes/routes.dart';
-import 'package:download/download.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../global_widgets.dart';
+
 class TempSetProfileController extends GetxController {
-  final nameInputController = TextEditingController();
+  final nickNameInputController = TextEditingController();
   final introInputController = TextEditingController();
 
   final profileScreenshotController = ScreenshotController();
 
-  final name = "".obs;
+  final nickName = "".obs;
   final introduce = "".obs;
 
-  late final String uid;
+  late final String name;
+  late final String phone;
 
   final Rx<String?> profileImagePath = Rx<String?>(null);
 
   @override
   void onInit() {
-    final String? uid = Get.arguments != null
-        ? Get.arguments["uid"]
-        : (kDebugMode ? "debugModeNullUid" : null);
+    final String? name = Get.arguments?["name"];
+    final String? phone = Get.arguments?["phone"];
+
     SchedulerBinding.instance?.addPostFrameCallback((_) {
-      if (uid == null) Get.offAllNamed(Routes.tempMain);
+      if (name == null || phone == null) Get.offAllNamed(Routes.tempMain);
     });
-    if (uid != null) {
-      this.uid = uid;
-      print(uid);
+    if (name != null && phone != null) {
+      this.name = name;
+      this.phone = phone;
+      print(name);
     }
 
-    nameInputController.addListener(() {
-      name.value = nameInputController.text;
+    nickNameInputController.addListener(() {
+      nickName.value = nickNameInputController.text;
     });
     introInputController.addListener(() {
       introduce.value = introInputController.text;
@@ -49,7 +51,31 @@ class TempSetProfileController extends GetxController {
   }
 
   Future<void> onClick() async {
-    _getLoadedImage();
+    final file = await _getLoadedImage();
+    Get.dialog(loadingDialog(), barrierDismissible: false); //loading indicator
+
+    if (file != null) {
+      final imageUrl = await UserRepository.uploadProfile(file, phone: phone);
+
+      if (imageUrl != null) {
+        final user = User(
+            name: name,
+            phone: phone,
+            nickName: nickName.value,
+            introduction: introduce.value,
+            profileImageUrl: imageUrl);
+
+        final uid = await UserRepository.register(user);
+        Get.back();
+        print("회원가입 완료! uid : $uid");
+
+        Get.offAllNamed(Routes.tempMain);
+      } else {
+        Get.rawSnackbar(message: "프로필 사진 업로드 오류입니다. 관리자에게 문의하세요.");
+      }
+    } else {
+      Get.rawSnackbar(message: "프로필 사진 오류입니다. 관리자에게 문의하세요.");
+    }
   }
 
   Future<void> addProfileImage() async {
@@ -59,15 +85,14 @@ class TempSetProfileController extends GetxController {
     profileImagePath.value = image.path;
   }
 
-  Future<void> _getLoadedImage() async {
+  Future<Uint8List?> _getLoadedImage() async {
     try {
       final rawImageData = (await profileScreenshotController.capture())!;
-      final stream = Stream.fromIterable(rawImageData);
-
-      download(stream, "profile_test.png");
-
+      return rawImageData;
     } catch (e) {
+      print(e);
       Get.rawSnackbar(message: "이미지 압축 오류 발생. 다시 시도 하거나, 개발자에게 문의해주세요.\n$e");
+      return null;
     }
   }
 }

@@ -7,4 +7,6 @@ class Routes {
   static const tempSetProfile = "/temp/set_profile";
   static const tempUpload = "/temp/upload";
 
+  static const tempLogout = "/temp/logout";
+
 }

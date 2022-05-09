@@ -149,3 +149,20 @@ Widget bottomContainer(List<Widget> widgets,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widgets)))
     ]);
+
+
+Dialog loadingDialog(){
+  return Dialog(
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: const [
+        CircularProgressIndicator(
+          color: Colors.white,
+          backgroundColor: Colors.transparent,
+        ),
+      ],
+    ),
+  );
+}

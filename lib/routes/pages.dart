@@ -1,3 +1,4 @@
+import 'package:dally/data/repository/user_repository.dart';
 import 'package:dally/presentation/main/main_controller.dart';
 import 'package:dally/presentation/main/main_page.dart';
 import 'package:dally/presentation/splash/splash_controller.dart';
@@ -11,6 +12,7 @@ import 'package:dally/presentation/temp/set_profile/temp_set_profile_page.dart';
 import 'package:dally/presentation/temp/upload/temp_upload_controller.dart';
 import 'package:dally/presentation/temp/upload/temp_upload_page.dart';
 import 'package:dally/routes/routes.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ApplicationPages {
@@ -27,7 +29,6 @@ class ApplicationPages {
         binding: BindingsBuilder(() {
           Get.put(SplashController());
         })),
-
 
     // temp
     GetPage(
@@ -57,5 +58,13 @@ class ApplicationPages {
           Get.put(TempUploadController());
         })),
 
+    GetPage(
+      name: Routes.tempLogout,
+      page: () => const Scaffold(),
+      binding: BindingsBuilder(() async {
+        await UserRepository.logout();
+        Get.offAllNamed(Routes.tempMain);
+      }),
+    )
   ];
 }
