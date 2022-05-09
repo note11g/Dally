@@ -1,5 +1,6 @@
 import 'package:dally/data/enums.dart';
 import 'package:dally/data/repository/user_repository.dart';
+import 'package:dally/presentation/global_widgets.dart';
 import 'package:dally/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ class TempLoginController extends GetxController {
 
   Future<void> onClick() async {
     if (mode.value == LoginMode.none) {
-      final user = await _userExist(phoneInputController.text);
+      final user = await _load(() => _userExist(phoneInputController.text));
 
       if (user == null) {
         // 유저가 없는 경우 => 회원가입
@@ -39,19 +40,19 @@ class TempLoginController extends GetxController {
         // 유저가 있는 경우 => 로그인 (OTP 전송)
         userName(user);
         mode(LoginMode.login);
-        (await _sendOTP(phoneInputController.text))
+        (await _load(() => _sendOTP(phoneInputController.text)))
             ? otpStatus(OTPStatus.sent)
             : failedOTP();
       }
     } else {
       if (otpStatus.value == OTPStatus.none) {
-        (await _sendOTP(phoneInputController.text))
+        (await _load(() => _sendOTP(phoneInputController.text)))
             ? otpStatus(OTPStatus.sent)
             : failedOTP();
       } else {
         if (mode.value == LoginMode.login) {
           // 로그인
-          final uid = await _login();
+          final uid = await _load(() =>_login());
           if (uid != null) {
             Get.offAllNamed(Routes.tempMain);
           } else {
@@ -60,7 +61,7 @@ class TempLoginController extends GetxController {
           }
         } else {
           // 회원가입
-          final res = await _checkOTPWithRegister();
+          final res = await _load(() =>_checkOTPWithRegister());
           if (res) {
             Get.offNamed(Routes.tempSetProfile, arguments: {
               "name": nameInputController.text,
@@ -114,5 +115,12 @@ class TempLoginController extends GetxController {
 
   void failedOTP() {
     Get.rawSnackbar(message: "인증코드 발송에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+  }
+
+  Future<T> _load<T>(Future<T> Function() func) async {
+    Get.dialog(loadingDialog(), barrierDismissible: false);
+    final res = await func.call();
+    Get.back();
+    return res;
   }
 }

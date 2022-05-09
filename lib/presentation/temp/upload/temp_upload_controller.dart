@@ -38,7 +38,8 @@ class TempUploadController extends GetxController {
   }
 
   Future<void> addImageClick() async {
-    image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    image =
+        await _load(() => ImagePicker().pickImage(source: ImageSource.gallery));
     if (image != null) {
       imagePath.value = image!.path;
     }
@@ -52,6 +53,7 @@ class TempUploadController extends GetxController {
         await image!.readAsBytes(),
         uid: uid!);
     if (url == null) {
+      Get.back(); //dialog off
       Get.rawSnackbar(message: "이미지 업로드에 실패하였습니다.");
       return;
     }
@@ -74,9 +76,14 @@ class TempUploadController extends GetxController {
     } else {
       print("upload succeed! id: $artworkId");
       Get.back(); //dialog off
-      Get.offAllNamed(Routes.tempMain, arguments: {
-        "upload" : true
-      });
+      Get.offAllNamed(Routes.tempMain, arguments: {"upload": true});
     }
+  }
+
+  Future<T> _load<T>(Future<T> Function() func) async {
+    Get.dialog(loadingDialog(), barrierDismissible: false);
+    final res = await func.call();
+    Get.back();
+    return res;
   }
 }

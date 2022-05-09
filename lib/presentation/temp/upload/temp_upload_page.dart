@@ -99,7 +99,7 @@ class TempUploadPage extends GetView<TempUploadController> {
                 labelStyle: const TextStyle(fontWeight: FontWeight.w500),
                 hint: "작품에 대해 자유롭게 설명 합니다",
                 maxLine: 3,
-                keyboardType: TextInputType.text),
+                keyboardType: TextInputType.multiline),
 
             // tag Section
             const SizedBox(height: 28),
@@ -109,6 +109,7 @@ class TempUploadPage extends GetView<TempUploadController> {
                 label: "작품 태그 (최대 5개)",
                 labelStyle: const TextStyle(fontWeight: FontWeight.w500),
                 hint: "태그는 띄어쓰기로 구분합니다",
+                maxLength: 50,
                 keyboardType: TextInputType.text),
             const SizedBox(height: 28),
             const Text("선택된 전시관",
