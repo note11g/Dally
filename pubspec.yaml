@@ -3,7 +3,7 @@ description: Dally Project
 
 publish_to: 'none'
 
-version: 0.0.3+3
+version: 0.0.4+4
 
 environment:
   sdk: ">=2.16.1 <3.0.0"
@@ -37,6 +37,9 @@ dependencies:
 
   # date_format
   intl: ^0.17.0
+
+  # native splash
+  flutter_native_splash: ^2.1.6
 
 dev_dependencies:
   flutter_test:

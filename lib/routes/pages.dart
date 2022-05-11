@@ -1,8 +1,6 @@
 import 'package:dally/data/repository/user_repository.dart';
 import 'package:dally/presentation/main/main_controller.dart';
 import 'package:dally/presentation/main/main_page.dart';
-import 'package:dally/presentation/splash/splash_controller.dart';
-import 'package:dally/presentation/splash/splash_page.dart';
 import 'package:dally/presentation/temp/login/temp_login_controller.dart';
 import 'package:dally/presentation/temp/login/temp_login_page.dart';
 import 'package:dally/presentation/temp/main/temp_main_controller.dart';
@@ -22,12 +20,6 @@ class ApplicationPages {
         page: () => const MainPage(),
         binding: BindingsBuilder(() {
           Get.put(MainController());
-        })),
-    GetPage(
-        name: Routes.splash,
-        page: () => const SplashPage(),
-        binding: BindingsBuilder(() {
-          Get.put(SplashController());
         })),
 
     // temp
