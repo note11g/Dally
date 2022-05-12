@@ -97,7 +97,7 @@
   <script>
     if(serviceWorkersDidntSupport) loadMainDartJs();
 
-    document.getElementsByTagName('body')[0].addEventListener('touchstart', (e) => {
+    document.getElementsByTagName("flt-glass-pane")[0].addEventListener('touchstart', (e) => {
       // is not near edge of view, exit
       if (e.pageX > 10 && e.pageX < window.innerWidth - 10) return;
 
