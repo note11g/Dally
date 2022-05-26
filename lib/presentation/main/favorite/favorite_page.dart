@@ -115,55 +115,57 @@ class FavoritePage extends GetView<FavoriteController> {
 
   Widget _profilesSection() {
     return SingleChildScrollView(
-      child: Row(
-        children: controller.likeUsers
-            .asMap()
-            .entries
-            .map((m) => Padding(
-                  padding: (m.key == 0)
-                      ? const EdgeInsets.only(left: 36, right: 14)
-                      : const EdgeInsets.only(right: 14),
-                  child: Column(
-                    children: [
-                      Stack(
+        scrollDirection: Axis.horizontal,
+        child: Obx(
+          () => Row(
+            children: controller.likeUsers
+                .asMap()
+                .entries
+                .map((m) => Padding(
+                      padding: (m.key == 0)
+                          ? const EdgeInsets.only(left: 36, right: 14)
+                          : const EdgeInsets.only(right: 14),
+                      child: Column(
                         children: [
-                          Container(
-                            width: 64,
-                            height: 64,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(999)),
-                            child: CachedNetworkImage(
-                              imageUrl: m.value.profileImageUrl,
-                            ),
-                          ),
-                          if (m.key == 0 || m.key == 1)
-                            Positioned(
-                                bottom: 4,
-                                right: 1,
-                                child: Container(
-                                  width: 16,
-                                  height: 16,
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                      color: ColorPalette.white,
-                                      borderRadius:
-                                          BorderRadius.circular(99.0)),
-                                  child: Container(
+                          Stack(
+                            children: [
+                              Container(
+                                width: 64,
+                                height: 64,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(999)),
+                                child: CachedNetworkImage(
+                                  imageUrl: m.value.profileImageUrl,
+                                ),
+                              ),
+                              if (m.key == 0 || m.key == 1)
+                                Positioned(
+                                    bottom: 4,
+                                    right: 1,
+                                    child: Container(
+                                      width: 16,
+                                      height: 16,
+                                      padding: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
-                                          color: ColorPalette.mainBlue,
+                                          color: ColorPalette.white,
                                           borderRadius:
-                                              BorderRadius.circular(99.0))),
-                                ))
+                                              BorderRadius.circular(99.0)),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              color: ColorPalette.mainBlue,
+                                              borderRadius:
+                                                  BorderRadius.circular(99.0))),
+                                    ))
+                            ],
+                          ),
+                          Text(m.value.nickName,
+                              style: const TextStyle(letterSpacing: 0.5))
                         ],
                       ),
-                      Text(m.value.nickName,
-                          style: const TextStyle(letterSpacing: 0.5))
-                    ],
-                  ),
-                ))
-            .toList(),
-      ),
-    );
+                    ))
+                .toList(),
+          ),
+        ));
   }
 
   Widget _tempArtworkItem(

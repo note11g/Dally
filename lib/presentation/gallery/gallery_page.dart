@@ -46,6 +46,7 @@ class GalleryPage extends GetView<GalleryController> {
                           "${controller.nowArtwork.value?.owner}"])),
                     ),
                     Obx(() => _pictureSection()),
+                    const SizedBox(height: 420)
                   ],
                 ),
                 _buildBottomDrawer(context),
