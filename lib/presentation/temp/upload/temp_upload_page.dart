@@ -24,7 +24,7 @@ class TempUploadPage extends GetView<TempUploadController> {
           children: [
             Row(children: [
               button(
-                  onTap: () => Get.offAllNamed(Routes.tempMain),
+                  onTap: () => Get.back(),
                   child: const Icon(Icons.arrow_back_ios, size: 22),
                   padding: const EdgeInsets.symmetric(vertical: 4)),
             ]),

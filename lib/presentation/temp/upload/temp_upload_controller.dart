@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dally/core/util/alert_util.dart';
 import 'package:dally/data/enums.dart';
 import 'package:dally/data/model/artwork_model.dart';
 import 'package:dally/data/repository/artwork_repository.dart';
@@ -45,37 +46,44 @@ class TempUploadController extends GetxController {
   }
 
   Future<void> submit() async {
-    final uid = await LocalDataSource.getUid();
-    print("image upload start($uid) : ${imagePath.value}");
-    Get.dialog(loadingDialog(), barrierDismissible: false); //loading indicator
-    final url = await ArtworkRepository.uploadArtworkImage(
-        await image!.readAsBytes(),
-        uid: uid!);
-    if (url == null) {
-      Get.back(); //dialog off
-      Get.rawSnackbar(message: "이미지 업로드에 실패하였습니다.");
-      return;
-    }
-    print("image upload succeed : $url");
-    final tags = tag.value.split(" ");
+    Alert.load(() async {
+      await Future.delayed(const Duration(seconds: 1));
+      Alert.show("업로드에 성공하였습니다! (실제 업로드는 졸업 전시회 기간동안 잠시 중단됩니다)");
+      await Future.delayed(const Duration(seconds: 2));
+      Get.offAllNamed(Routes.main);
+    });
 
-    final artwork = ArtWork(
-        owner: uid,
-        title: title.value,
-        description: info.value,
-        tags: tags,
-        artImageUrl: url,
-        gallery: galleryType.value);
-
-    print("upload start : $artwork");
-    final artworkId = await ArtworkRepository.uploadArtwork(artwork);
-    if (artworkId == null) {
-      Get.back(); //dialog off
-      Get.rawSnackbar(message: "업로드에 실패하였습니다.");
-    } else {
-      print("upload succeed! id: $artworkId");
-      Get.back(); //dialog off
-      Get.offAllNamed(Routes.tempMain, arguments: {"upload": true});
-    }
+    // final uid = await LocalDataSource.getUid();
+    // print("image upload start($uid) : ${imagePath.value}");
+    // Get.dialog(loadingDialog(), barrierDismissible: false); //loading indicator
+    // final url = await ArtworkRepository.uploadArtworkImage(
+    //     await image!.readAsBytes(),
+    //     uid: uid!);
+    // if (url == null) {
+    //   Get.back(); //dialog off
+    //   Get.rawSnackbar(message: "이미지 업로드에 실패하였습니다.");
+    //   return;
+    // }
+    // print("image upload succeed : $url");
+    // final tags = tag.value.split(" ");
+    //
+    // final artwork = ArtWork(
+    //     owner: uid,
+    //     title: title.value,
+    //     description: info.value,
+    //     tags: tags,
+    //     artImageUrl: url,
+    //     gallery: galleryType.value);
+    //
+    // print("upload start : $artwork");
+    // final artworkId = await ArtworkRepository.uploadArtwork(artwork);
+    // if (artworkId == null) {
+    //   Get.back(); //dialog off
+    //   Get.rawSnackbar(message: "업로드에 실패하였습니다.");
+    // } else {
+    //   print("upload succeed! id: $artworkId");
+    //   Get.back(); //dialog off
+    //   Get.offAllNamed(Routes.tempMain, arguments: {"upload": true});
+    // }
   }
 }

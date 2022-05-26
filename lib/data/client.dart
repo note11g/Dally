@@ -1,4 +1,6 @@
 import 'package:dally/data/model/artwork_model.dart';
+import 'package:dally/data/model/search_model.dart';
+import 'package:dally/data/model/trend_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
@@ -38,7 +40,22 @@ abstract class RestClient {
   @POST("/artwork/upload")
   Future<Map<String, int>> uploadArtwork(@Body() ArtWork artWork);
 
-  /// image
-// @POST("/image/profile/upload")
-// Future<Map<String, String>> uploadProfileImage(@Part() File file);
+  @GET("/artwork/{id}")
+  Future<ArtWork> getArtwork(@Path("id") String artId);
+
+  @GET("/artwork/gallery/{type}")
+  Future<Map<String, List<ArtWork>>> getArtworkByType(
+      @Path("type") String galleryType);
+
+  /// trend
+  @GET("/artwork/trend")
+  Future<Trend?> getTrend();
+
+  /// search
+  @GET("/search?keyword={k}")
+  Future<Search?> search(@Path("k") String keyword);
+
+  /// user's artwork
+  @GET("/artwork/user/{id}")
+  Future<Map<String, List<ArtWork>>> getUsersArtworks(@Path("id") String uid);
 }

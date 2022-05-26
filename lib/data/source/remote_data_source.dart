@@ -8,6 +8,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../enums.dart';
+import '../model/search_model.dart';
+import '../model/trend_model.dart';
+
 class RemoteDataSource {
   static final _dio =
       kDebugMode ? (Dio()..interceptors.add(LogInterceptor())) : Dio();
@@ -92,7 +96,31 @@ class RemoteDataSource {
     }
   }
 
-  static Future<int?> uploadArtwork(ArtWork artWork) async {
+  static Future<int?> uploadArtwork(ArtWork artWork) {
     return RestClient(_dio).uploadArtwork(artWork).then((v) => v["id"]);
+  }
+
+  static Future<ArtWork> getArtwork(String artId) {
+    return RestClient(_dio).getArtwork(artId);
+  }
+
+  static Future<List<ArtWork>> getArtworkByType(GalleryType type) {
+    return RestClient(_dio)
+        .getArtworkByType(type.name)
+        .then((m) => m["artwork"] ?? []);
+  }
+
+  static Future<Trend?> getTrends() {
+    return RestClient(_dio).getTrend();
+  }
+
+  static Future<Search?> search(String keyword) {
+    return RestClient(_dio).search(keyword);
+  }
+
+  static Future<List<ArtWork>> getUsersArtworks(String uid) {
+    return RestClient(_dio)
+        .getUsersArtworks(uid)
+        .then((v) => v["artworks"] ?? []);
   }
 }

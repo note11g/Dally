@@ -50,7 +50,6 @@ class UserRepository {
   }
 
   static Future logout() async {
-    //todo : add server logout code
     await LocalDataSource.removeUid();
   }
 

@@ -81,7 +81,10 @@ Widget input({
   int? maxLength,
   int? maxLine = 1,
   TextInputType? keyboardType,
+  TextInputAction? textInputAction,
+  Function(String)? onSubmitted,
   bool? enable = true,
+  Function()? onTap,
 }) =>
     TextField(
       style: inputTextStyle,
@@ -98,7 +101,10 @@ Widget input({
       maxLength: maxLength,
       maxLines: maxLine,
       keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      onSubmitted: onSubmitted,
       cursorColor: ColorPalette.mainBlue,
+      onTap: onTap,
     );
 
 Widget underlineInput({
@@ -150,8 +156,7 @@ Widget bottomContainer(List<Widget> widgets,
                   children: widgets)))
     ]);
 
-
-Dialog loadingDialog(){
+Dialog loadingDialog() {
   return Dialog(
     backgroundColor: Colors.transparent,
     elevation: 0,

@@ -4,7 +4,7 @@ class ColorPalette {
   static const mainBlue = Color(0xFF383F7B);
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
-  static const subText = Color(0xFF7D7D7D); // todo : change color name
+  static const subText = Color(0xFF7D7D7D);
   static const backGroundGray = Color(0xFFFBFBFB);
   static const gray100 = Color(0xFFF4F4F4);
   static const gray200 = Color(0xFFE7E7E7);

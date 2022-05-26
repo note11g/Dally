@@ -1,8 +1,26 @@
+import 'package:hive/hive.dart';
+
+part 'enums.g.dart';
+
 enum LoginMode { none, login, register }
 
 enum OTPStatus { none, sent }
 
-enum GalleryType { illustration, drawing, landscape, portrait, stillLife, none }
+@HiveType(typeId: 4)
+enum GalleryType {
+  @HiveField(0)
+  illustration,
+  @HiveField(1)
+  drawing,
+  @HiveField(2)
+  landscape,
+  @HiveField(3)
+  portrait,
+  @HiveField(4)
+  stillLife,
+  @HiveField(5)
+  none
+}
 
 extension StringToGalleryType on String {
   GalleryType toGalleryType() {

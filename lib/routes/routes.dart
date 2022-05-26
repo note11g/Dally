@@ -1,5 +1,7 @@
 class Routes {
   static const main = '/';
+  static const gallery = "/gallery";
+  static const user = "/user";
 
   static const tempMain = "/temp";
   static const tempLogin = "/temp/login";
