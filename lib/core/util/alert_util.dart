@@ -26,10 +26,16 @@ class Alert {
     ));
   }
 
-  static Future<T> load<T>(Future<T> Function() func) async {
+  static Future<T?> load<T>(Future<T?> Function() func) async {
     Get.dialog(loadingDialog(), barrierDismissible: false);
-    final res = await func.call();
-    Get.back();
-    return res;
+    try {
+      final res = await func.call();
+      Get.back();
+      return res;
+    } catch(e) {
+      print(e);
+      Get.back();
+      return null;
+    }
   }
 }

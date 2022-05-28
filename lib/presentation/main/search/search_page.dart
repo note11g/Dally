@@ -437,96 +437,100 @@ class SearchPage extends GetView<SearchController> {
   }
 
   Widget _tempUserItem(User user, {required List<ArtWork> artworks}) {
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-                width: 56,
-                height: 56,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(999),
-                  child: CachedNetworkImage(
-                    imageUrl: user.profileImageUrl,
-                    placeholder: (ctx, _) => Container(
-                        color: ColorPalette.mainBlue,
-                        child: const Center(
-                            child: CircularProgressIndicator(
-                                color: ColorPalette.white))),
-                  ),
-                )),
-            const SizedBox(width: 20),
-            Expanded(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(user.nickName,
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        letterSpacing: 0.5)),
-                const SizedBox(width: 1),
-                Text(user.introduction,
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: ColorPalette.subText,
-                        letterSpacing: 0.5)),
-              ],
-            )),
-            SvgPicture.asset("${Path.imagePath}/icon_arrow_right.svg")
-          ],
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 16, bottom: 14),
-          child: Divider(color: ColorPalette.gray100, height: 1, thickness: 1),
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 70,
-                color: const Color(0xFFD3DAE3),
-                child: artworks.isNotEmpty
-                    ? CachedNetworkImage(
-                        imageUrl: artworks[0].artImageUrl,
-                        fit: BoxFit.fitWidth,
-                        width: double.infinity)
-                    : null,
+    return button(
+      onTap: () => Get.toNamed("${Routes.user}?uid=${user.uid}"),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                  width: 56,
+                  height: 56,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(999),
+                    child: CachedNetworkImage(
+                      imageUrl: user.profileImageUrl,
+                      placeholder: (ctx, _) => Container(
+                          color: ColorPalette.mainBlue,
+                          child: const Center(
+                              child: CircularProgressIndicator(
+                                  color: ColorPalette.white))),
+                    ),
+                  )),
+              const SizedBox(width: 20),
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(user.nickName,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          letterSpacing: 0.5)),
+                  const SizedBox(width: 1),
+                  Text(user.introduction,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: ColorPalette.subText,
+                          letterSpacing: 0.5)),
+                ],
+              )),
+              SvgPicture.asset("${Path.imagePath}/icon_arrow_right.svg")
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 16, bottom: 14),
+            child:
+                Divider(color: ColorPalette.gray100, height: 1, thickness: 1),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 70,
+                  color: const Color(0xFFD3DAE3),
+                  child: artworks.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: artworks[0].artImageUrl,
+                          fit: BoxFit.fitWidth,
+                          width: double.infinity)
+                      : null,
+                ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Container(
-                height: 70,
-                color: const Color(0xFFD3DAE3),
-                child: artworks.length > 1
-                    ? CachedNetworkImage(
-                        imageUrl: artworks[1].artImageUrl,
-                        fit: BoxFit.fitWidth,
-                        width: double.infinity)
-                    : null,
+              const SizedBox(width: 10),
+              Expanded(
+                child: Container(
+                  height: 70,
+                  color: const Color(0xFFD3DAE3),
+                  child: artworks.length > 1
+                      ? CachedNetworkImage(
+                          imageUrl: artworks[1].artImageUrl,
+                          fit: BoxFit.fitWidth,
+                          width: double.infinity)
+                      : null,
+                ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Container(
-                height: 70,
-                color: const Color(0xFFD3DAE3),
-                child: artworks.length > 2
-                    ? CachedNetworkImage(
-                        imageUrl: artworks[2].artImageUrl,
-                        fit: BoxFit.fitWidth,
-                        width: double.infinity)
-                    : null,
+              const SizedBox(width: 10),
+              Expanded(
+                child: Container(
+                  height: 70,
+                  color: const Color(0xFFD3DAE3),
+                  child: artworks.length > 2
+                      ? CachedNetworkImage(
+                          imageUrl: artworks[2].artImageUrl,
+                          fit: BoxFit.fitWidth,
+                          width: double.infinity)
+                      : null,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 

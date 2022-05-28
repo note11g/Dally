@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dally/data/repository/artwork_repository.dart';
 import 'package:dally/data/repository/user_repository.dart';
 import 'package:dally/routes/routes.dart';
@@ -17,7 +19,7 @@ class MyController extends GetxController {
 
   @override
   void onInit() {
-    final userId = "2";
+    final userId = next(22, 30).toString();
 
     ever(user, (User? user) {
       if (user != null) {
@@ -56,6 +58,8 @@ class MyController extends GetxController {
 
     super.onInit();
   }
+
+  int next(int min, int max) => min + Random().nextInt(max - min);
 
   void tapLike(ArtWork artwork, {required bool isLiked}) async {
     print("[tapped!] ${artwork.toJson()}");
