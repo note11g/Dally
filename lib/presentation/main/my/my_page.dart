@@ -273,7 +273,7 @@ class MyPage extends GetView<MyController> {
 
   _artworkSection() => Container(
         color: ColorPalette.backGroundGray,
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Obx(() => Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [

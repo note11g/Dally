@@ -129,13 +129,18 @@ class FavoritePage extends GetView<FavoriteController> {
                         children: [
                           Stack(
                             children: [
-                              Container(
-                                width: 64,
-                                height: 64,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(999)),
-                                child: CachedNetworkImage(
-                                  imageUrl: m.value.profileImageUrl,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(999),
+                                child: button(
+                                  onTap: () => Get.toNamed(
+                                      "${Routes.user}?uid=${m.value.uid}"),
+                                  child: SizedBox(
+                                    width: 64,
+                                    height: 64,
+                                    child: CachedNetworkImage(
+                                      imageUrl: m.value.profileImageUrl,
+                                    ),
+                                  ),
                                 ),
                               ),
                               if (m.key == 0 || m.key == 1)
