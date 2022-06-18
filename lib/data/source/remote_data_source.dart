@@ -29,7 +29,7 @@ class RemoteDataSource {
   }
 
   static Future<User?> getUser(String uid) {
-    return RestClient(_dio).getUser(uid).then((v) => v["user"]);
+    return RestClient(_dio).getUser(uid).then((v) => v?["user"]);
   }
 
   static Future<String?> sendOTP(String phone) {

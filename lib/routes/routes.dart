@@ -9,5 +9,6 @@ class Routes {
   static const tempUpload = "/temp/upload";
 
   static const tempLogout = "/temp/logout";
+  static const test = "/sadasdsadasasdew21321qwwce";
 
 }

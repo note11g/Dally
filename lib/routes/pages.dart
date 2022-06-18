@@ -13,6 +13,7 @@ import 'package:dally/presentation/temp/main/temp_main_controller.dart';
 import 'package:dally/presentation/temp/main/temp_main_page.dart';
 import 'package:dally/presentation/temp/set_profile/temp_set_profile_controller.dart';
 import 'package:dally/presentation/temp/set_profile/temp_set_profile_page.dart';
+import 'package:dally/presentation/temp/test_page.dart';
 import 'package:dally/presentation/temp/upload/temp_upload_controller.dart';
 import 'package:dally/presentation/temp/upload/temp_upload_page.dart';
 import 'package:dally/presentation/user/user_controller.dart';
@@ -47,7 +48,6 @@ class ApplicationPages {
         binding: BindingsBuilder(() {
           Get.put(UserController());
         })),
-
 
     // temp
     GetPage(
@@ -84,6 +84,8 @@ class ApplicationPages {
         await UserRepository.logout();
         Get.offAllNamed(Routes.tempMain);
       }),
-    )
+    ),
+
+    GetPage(name: Routes.test, page: () => const TestPage()),
   ];
 }

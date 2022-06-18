@@ -34,7 +34,7 @@ abstract class RestClient {
 
   @POST("/user/get")
   @FormUrlEncoded()
-  Future<Map<String, User?>> getUser(@Field() String uid);
+  Future<Map<String, User?>?> getUser(@Field() String uid);
 
   /// artwork
   @POST("/artwork/upload")

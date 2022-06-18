@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:dally/data/enums.dart';
 import 'package:dally/data/model/artwork_model.dart';
 import 'package:dally/data/model/user_model.dart';
 import 'package:dally/data/repository/artwork_repository.dart';
 import 'package:dally/data/repository/search_repository.dart';
 import 'package:dally/data/repository/user_repository.dart';
+import 'package:dally/data/source/remote_data_source.dart';
 import 'package:dally/routes/routes.dart';
 import 'package:get/get.dart';
 
@@ -15,9 +18,8 @@ class UserController extends GetxController {
   final nowGalleryType = GalleryType.none.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     final userId = Get.parameters["uid"] ?? "";
-
 
 
     ever(user, (User? user) {

@@ -120,7 +120,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<Map<String, User?>> getUser(uid) async {
+  Future<Map<String, User?>?> getUser(uid) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -134,7 +134,7 @@ class _RestClient implements RestClient {
             .compose(_dio.options, '/user/get',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!.map((k, dynamic v) =>
+    var value = _result.data?.map((k, dynamic v) =>
         MapEntry(k, User.fromJson(v as Map<String, dynamic>)));
     return value;
   }
