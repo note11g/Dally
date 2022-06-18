@@ -1,4 +1,0 @@
-flutter_native_splash:
-  # flutter pub run flutter_native_splash:create
-  color: "#FBFBFB"
-  image: assets/imgs/temp_logo_main.png
